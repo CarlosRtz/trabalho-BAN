@@ -16,19 +16,6 @@ public class DisciplinaModel {
 		}
 		return newId;
 	}
-	
-//    public static void insert(Disciplina d, Connection con){
-//        try{
-//            PreparedStatement st = con.prepareStatement("INSERT INTO disciplinas (codDisciplina, cargaHoraria, nome) VALUES (?,?,?)");
-//            st.setInt(1, d.getCodDisciplina());
-//            st.setInt(2, d.getCargaHoraria());
-//            st.setString(3, d.getNome());
-//            st.execute();
-//            st.close();
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
     
     public static void insert(Disciplina d, Connection con) throws SQLException {
     	PreparedStatement st = con.prepareStatement("INSERT INTO disciplinas (codDisciplina, cargaHoraria, nome) VALUES (?,?,?)");
