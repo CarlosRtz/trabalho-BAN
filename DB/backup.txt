@@ -1,0 +1,168 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4
+-- Dumped by pg_dump version 14.4
+
+-- Started on 2022-12-13 23:59:21
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 209 (class 1259 OID 16722)
+-- Name: cursos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cursos (
+    codcurso integer NOT NULL,
+    nome character varying(30)
+);
+
+
+ALTER TABLE public.cursos OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16747)
+-- Name: disciplinas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.disciplinas (
+    coddisciplina integer NOT NULL,
+    nome character varying(100),
+    cargahoraria integer
+);
+
+
+ALTER TABLE public.disciplinas OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16752)
+-- Name: grade; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.grade (
+    codcurso integer NOT NULL,
+    coddisciplina integer NOT NULL
+);
+
+
+ALTER TABLE public.grade OWNER TO postgres;
+
+--
+-- TOC entry 3318 (class 0 OID 16722)
+-- Dependencies: 209
+-- Data for Name: cursos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.cursos (codcurso, nome) VALUES (1, 'Computação');
+INSERT INTO public.cursos (codcurso, nome) VALUES (2, 'Engenharia');
+INSERT INTO public.cursos (codcurso, nome) VALUES (3, 'Fisica');
+INSERT INTO public.cursos (codcurso, nome) VALUES (4, 'Quimica');
+
+
+--
+-- TOC entry 3319 (class 0 OID 16747)
+-- Dependencies: 210
+-- Data for Name: disciplinas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (1, 'Programação orientada a objetos', 36);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (2, 'Calculo 1', 60);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (3, 'Introdução a fisica', 36);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (4, 'Introdução a quimica', 36);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (5, 'Algoritmos', 36);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (6, 'Geometria analitica', 40);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (7, 'Quimica organica', 40);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (8, 'Termodinamica', 40);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (9, 'Programação funcional', 36);
+INSERT INTO public.disciplinas (coddisciplina, nome, cargahoraria) VALUES (10, 'Calculo 2', 60);
+
+
+--
+-- TOC entry 3320 (class 0 OID 16752)
+-- Dependencies: 211
+-- Data for Name: grade; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (1, 1);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (1, 2);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (2, 2);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (3, 2);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (4, 2);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (3, 3);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (4, 4);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (1, 5);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (1, 6);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (2, 6);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (4, 7);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (3, 8);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (4, 8);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (1, 9);
+INSERT INTO public.grade (codcurso, coddisciplina) VALUES (2, 10);
+
+
+--
+-- TOC entry 3172 (class 2606 OID 16726)
+-- Name: cursos cursos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cursos
+    ADD CONSTRAINT cursos_pkey PRIMARY KEY (codcurso);
+
+
+--
+-- TOC entry 3174 (class 2606 OID 16751)
+-- Name: disciplinas disciplinas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.disciplinas
+    ADD CONSTRAINT disciplinas_pkey PRIMARY KEY (coddisciplina);
+
+
+--
+-- TOC entry 3176 (class 2606 OID 16756)
+-- Name: grade grade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade
+    ADD CONSTRAINT grade_pkey PRIMARY KEY (codcurso, coddisciplina);
+
+
+--
+-- TOC entry 3177 (class 2606 OID 16757)
+-- Name: grade grade_codcurso_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade
+    ADD CONSTRAINT grade_codcurso_fkey FOREIGN KEY (codcurso) REFERENCES public.cursos(codcurso);
+
+
+--
+-- TOC entry 3178 (class 2606 OID 16762)
+-- Name: grade grade_coddisciplina_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade
+    ADD CONSTRAINT grade_coddisciplina_fkey FOREIGN KEY (coddisciplina) REFERENCES public.disciplinas(coddisciplina);
+
+
+-- Completed on 2022-12-13 23:59:21
+
+--
+-- PostgreSQL database dump complete
+--
+
